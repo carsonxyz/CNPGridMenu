@@ -10,6 +10,9 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic, strong) IBOutlet UIButton *showGridButton;
+
+- (IBAction)showGridMenu:(id)sender;
 
 @end
 
