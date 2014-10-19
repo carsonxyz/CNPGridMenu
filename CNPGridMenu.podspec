@@ -16,11 +16,11 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CNPGridMenu"
-  s.version      = "0.1.0"
+  s.version      = "0.1.1"
   s.summary      = "A Mailbox style grid menu with a blurred background."
 
   s.description  = <<-DESC
-                   A longer description of CNPGridMenu in Markdown format.
+                   A clone of the Mailbox grid menu. It's customizable and easy to implement. It looks great too!
 
                    * Think: Why did you write this? What is the focus? What does it do?
                    * CocoaPods will be using this to generate tags, and improve search results.
@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage     = "https://github.com/carsonperrotti/CNPGridMenu"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
+  s.screenshots  = "http://i.imgur.com/KhvwNU4.gif"
 
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -54,7 +54,7 @@ Pod::Spec.new do |s|
   # s.author             = { "Carson Perrotti" => "carsonperrotti@gmail.com" }
   s.author    = "Carson Perrotti"
   # s.authors            = { "Carson Perrotti" => "carsonperrotti@gmail.com" }
-  # s.social_media_url   = "http://twitter.com/Carson Perrotti"
+  s.social_media_url   = "http://twitter.com/carsonp"
 
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -77,7 +77,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/carsonperrotti/CNPGridMenu.git", :tag => "0.1.0" }
+  s.source       = { :git => "https://github.com/carsonperrotti/CNPGridMenu.git", :tag => "0.1.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
