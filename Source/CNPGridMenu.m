@@ -176,6 +176,9 @@
     if ([self.delegate respondsToSelector:@selector(didTapOnGridMenuItem:)]) {
         [self.delegate didTapOnGridMenuItem:self.menuItem];
     }
+    if (self.menuItem.selectionHandler) {
+        self.menuItem.selectionHandler(self.menuItem);
+    }
 }
 
 - (void)buttonTouchUpOutside:(UIButton *)button {
