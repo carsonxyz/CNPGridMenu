@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, CNPBlurEffectStyle) {
+    CNPBlurEffectStyleExtraLight,
+    CNPBlurEffectStyleLight,
+    CNPBlurEffectStyleDark
+};
+
 @class CNPGridMenuItem;
 @protocol CNPGridMenuDelegate;
 
@@ -15,7 +21,7 @@ typedef void (^SelectionHandler)(CNPGridMenuItem *item);
 
 @interface CNPGridMenu : UICollectionViewController
 
-@property (nonatomic, assign) UIBlurEffectStyle blurEffectStyle;
+@property (nonatomic, assign) CNPBlurEffectStyle blurEffectStyle;
 
 @property (nonatomic, weak) id <CNPGridMenuDelegate> delegate;
 @property (nonatomic, readonly) NSArray *menuItems;

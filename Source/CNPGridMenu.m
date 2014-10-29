@@ -38,7 +38,7 @@
 @property (nonatomic, strong) UIButton *circleButton;
 @property (nonatomic, strong) UIImageView *iconView;
 @property (nonatomic, strong) UIView *vibrancyView;
-@property (nonatomic, assign) UIBlurEffectStyle blurEffectStyle;
+@property (nonatomic, assign) CNPBlurEffectStyle blurEffectStyle;
 
 @property (nonatomic, weak) id <CNPGridMenuButtonDelegate> delegate;
 
@@ -63,7 +63,7 @@
     self.flowLayout = [[CNPGridMenuFlowLayout alloc] init];
     self = [super initWithCollectionViewLayout:self.flowLayout];
     if (self) {
-        _blurEffectStyle = UIBlurEffectStyleDark;
+        _blurEffectStyle = CNPBlurEffectStyleDark;
         _buttons = [NSMutableArray new];
         _menuItems = items;
     }
@@ -81,13 +81,25 @@
     [super viewWillAppear:animated];
     
     if (CNP_IS_IOS8) {
-        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:self.blurEffectStyle];
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:(UIBlurEffectStyle)self.blurEffectStyle];
         self.blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
         self.collectionView.backgroundView = self.blurView;
     }
     else {
         UIImageView *backgroundBlurImage = ((UIImageView *)self.collectionView.backgroundView);
-        backgroundBlurImage.image = [backgroundBlurImage.image applyDarkEffect];
+        switch (self.blurEffectStyle) {
+            case CNPBlurEffectStyleDark:
+                backgroundBlurImage.image = [backgroundBlurImage.image applyDarkEffect];
+                break;
+            case CNPBlurEffectStyleExtraLight:
+                backgroundBlurImage.image = [backgroundBlurImage.image applyExtraLightEffect];
+                break;
+            case CNPBlurEffectStyleLight:
+                backgroundBlurImage.image = [backgroundBlurImage.image applyLightEffect];
+                break;
+            default:
+                break;
+        }
     }
     
     self.backgroundTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnBackgroundView:)];
@@ -97,7 +109,7 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return self.blurEffectStyle == UIBlurEffectStyleDark ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+    return self.blurEffectStyle == CNPBlurEffectStyleDark ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 #pragma mark - UICollectionView Delegate & DataSource
@@ -145,7 +157,7 @@
 
 - (void)setupCell {
     if (CNP_IS_IOS8) {
-        UIVisualEffect *vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:[UIBlurEffect effectWithStyle:self.blurEffectStyle]];
+        UIVisualEffect *vibrancyEffect = [UIVibrancyEffect effectForBlurEffect:[UIBlurEffect effectWithStyle:(UIBlurEffectStyle)self.blurEffectStyle]];
         self.vibrancyView = [[UIVisualEffectView alloc] initWithEffect:vibrancyEffect];
     }
     else {
@@ -156,7 +168,7 @@
     self.circleButton = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.circleButton setBackgroundColor:[UIColor clearColor]];
     self.circleButton.layer.borderWidth = 1.0f;
-    self.circleButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.circleButton.layer.borderColor = self.blurEffectStyle == CNPBlurEffectStyleDark?[UIColor whiteColor].CGColor:[UIColor darkGrayColor].CGColor;
     [self.circleButton addTarget:self action:@selector(buttonTouchDown:) forControlEvents:UIControlEventTouchDown];
     [self.circleButton addTarget:self action:@selector(buttonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [self.circleButton addTarget:self action:@selector(buttonTouchUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
@@ -168,7 +180,7 @@
     }
     
     self.iconView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    self.iconView.tintColor = [UIColor whiteColor];
+    self.iconView.tintColor = self.blurEffectStyle == CNPBlurEffectStyleDark?[UIColor whiteColor]:[UIColor darkGrayColor];
     [self.iconView setContentMode:UIViewContentModeScaleAspectFit];
     if (CNP_IS_IOS8) {
         [((UIVisualEffectView *)self.vibrancyView).contentView addSubview:self.iconView];
@@ -179,7 +191,7 @@
     
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    [self.titleLabel setTextColor:[UIColor whiteColor]];
+    [self.titleLabel setTextColor:self.blurEffectStyle == CNPBlurEffectStyleDark?[UIColor whiteColor]:[UIColor darkGrayColor]];
     [self.titleLabel setNumberOfLines:2];
     [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
     if (CNP_IS_IOS8) {
@@ -190,7 +202,7 @@
     }
 }
 
-- (void)setBlurEffectStyle:(UIBlurEffectStyle)blurEffectStyle {
+- (void)setBlurEffectStyle:(CNPBlurEffectStyle)blurEffectStyle {
     _blurEffectStyle = blurEffectStyle;
     if (self.vibrancyView == nil) {
         [self setupCell];
@@ -208,13 +220,25 @@
 }
 
 - (void)buttonTouchDown:(UIButton *)button {
-    self.iconView.tintColor = [UIColor blackColor];
-    button.backgroundColor = [UIColor whiteColor];
+    if (self.blurEffectStyle == CNPBlurEffectStyleDark) {
+        self.iconView.tintColor = [UIColor blackColor];
+        button.backgroundColor = [UIColor whiteColor];
+    }
+    else {
+        self.iconView.tintColor = [UIColor whiteColor];
+        button.backgroundColor = [UIColor darkGrayColor];
+    }
 }
 
 - (void)buttonTouchUpInside:(UIButton *)button {
-    self.iconView.tintColor = [UIColor whiteColor];
-    button.backgroundColor = [UIColor clearColor];
+    if (self.blurEffectStyle == CNPBlurEffectStyleDark) {
+        self.iconView.tintColor = [UIColor whiteColor];
+        button.backgroundColor = [UIColor clearColor];
+    }
+    else {
+        self.iconView.tintColor = [UIColor darkGrayColor];
+        button.backgroundColor = [UIColor clearColor];
+    }
     if ([self.delegate respondsToSelector:@selector(didTapOnGridMenuItem:)]) {
         [self.delegate didTapOnGridMenuItem:self.menuItem];
     }
@@ -224,8 +248,14 @@
 }
 
 - (void)buttonTouchUpOutside:(UIButton *)button {
-    self.iconView.tintColor = [UIColor whiteColor];
-    button.backgroundColor = [UIColor clearColor];
+    if (self.blurEffectStyle == CNPBlurEffectStyleDark) {
+        self.iconView.tintColor = [UIColor whiteColor];
+        button.backgroundColor = [UIColor clearColor];
+    }
+    else {
+        self.iconView.tintColor = [UIColor darkGrayColor];
+        button.backgroundColor = [UIColor clearColor];
+    }
 }
 
 @end
