@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B58E1F101A006C390058CE01 /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B58E1F0F1A006C390058CE01 /* Images-2.xcassets */; };
 		B5AB2B9C19F2E99D001681EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AB2B9B19F2E99D001681EB /* main.m */; };
 		B5AB2B9F19F2E99D001681EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AB2B9E19F2E99D001681EB /* AppDelegate.m */; };
 		B5AB2BA219F2E99D001681EB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5AB2BA119F2E99D001681EB /* ViewController.m */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B58E1F0F1A006C390058CE01 /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-2.xcassets"; sourceTree = "<group>"; };
 		B5AB2B9619F2E99D001681EB /* CNPGridMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CNPGridMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AB2B9A19F2E99D001681EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5AB2B9B19F2E99D001681EB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				B5AB2BA319F2E99D001681EB /* Main.storyboard */,
 				B5AB2BA619F2E99D001681EB /* Images.xcassets */,
 				B5AB2BA819F2E99D001681EB /* LaunchScreen.xib */,
+				B58E1F0F1A006C390058CE01 /* Images-2.xcassets */,
 				B5AB2B9919F2E99D001681EB /* Supporting Files */,
 			);
 			path = CNPGridMenu;
@@ -217,6 +220,7 @@
 			files = (
 				B5AB2BA519F2E99D001681EB /* Main.storyboard in Resources */,
 				B5AB2BAA19F2E99D001681EB /* LaunchScreen.xib in Resources */,
+				B58E1F101A006C390058CE01 /* Images-2.xcassets in Resources */,
 				B5AB2BA719F2E99D001681EB /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,9 +382,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = CNPGridMenu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "eb7e63a4-38d0-434b-886f-2d0a95d23cb6";
@@ -391,9 +396,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				INFOPLIST_FILE = CNPGridMenu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "eb7e63a4-38d0-434b-886f-2d0a95d23cb6";
