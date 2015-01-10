@@ -22,6 +22,7 @@ typedef void (^SelectionHandler)(CNPGridMenuItem *item);
 @interface CNPGridMenu : UICollectionViewController
 
 @property (nonatomic, assign) CNPBlurEffectStyle blurEffectStyle;
+@property (assign, nonatomic) BOOL fadeInAnimationEnabled;
 
 @property (nonatomic, weak) id <CNPGridMenuDelegate> delegate;
 @property (nonatomic, readonly) NSArray *menuItems;
