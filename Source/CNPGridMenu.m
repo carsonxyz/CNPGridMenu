@@ -59,15 +59,27 @@
 
 @implementation CNPGridMenu
 
-- (instancetype)initWithMenuItems:(NSArray *)items {
+- (instancetype)init
+{
+  self = [super init];
+  if (self) {
     self.flowLayout = [[CNPGridMenuFlowLayout alloc] init];
     self = [super initWithCollectionViewLayout:self.flowLayout];
     if (self) {
-        _blurEffectStyle = CNPBlurEffectStyleDark;
-        _buttons = [NSMutableArray new];
-        _menuItems = items;
+      _blurEffectStyle = CNPBlurEffectStyleDark;
+      _buttons = [NSMutableArray new];
     }
     return self;
+  }
+  return self;
+}
+
+- (instancetype)initWithMenuItems:(NSArray *)items {
+  self = [self init];
+  if (self) {
+    _menuItems = items;
+  }
+  return self;
 }
 
 - (void)viewDidLoad {
@@ -110,6 +122,12 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return self.blurEffectStyle == CNPBlurEffectStyleDark ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+}
+
+- (void)setMenuItems:(NSArray *)menuItems
+{
+  _menuItems = menuItems;
+  [self.collectionView reloadData];
 }
 
 #pragma mark - UICollectionView Delegate & DataSource
