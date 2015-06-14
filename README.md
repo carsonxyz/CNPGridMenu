@@ -24,6 +24,6 @@ You can choose the blur style. `UIBlurEffectStyleDark` `UIBlurEffectStyleLight` 
 
 Requires iOS 7 or iOS 8
 
-` Pod "CNPGridMenu" `
+` pod "CNPGridMenu" `
 
 Or if you don't want to use Cocoapods ` #import "CNPGridMenu.h" `
