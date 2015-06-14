@@ -24,7 +24,7 @@ typedef void (^SelectionHandler)(CNPGridMenuItem *item);
 @property (nonatomic, assign) CNPBlurEffectStyle blurEffectStyle;
 
 @property (nonatomic, weak) id <CNPGridMenuDelegate> delegate;
-@property (nonatomic, readonly) NSArray *menuItems;
+@property (nonatomic) NSArray *menuItems;
 
 - (instancetype)initWithMenuItems:(NSArray *)items;
 
