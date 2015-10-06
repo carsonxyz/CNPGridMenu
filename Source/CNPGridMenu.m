@@ -186,7 +186,6 @@
     
     self.circleButton = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.circleButton setBackgroundColor:[UIColor clearColor]];
-    self.circleButton.layer.borderWidth = 1.0f;
     self.circleButton.layer.borderColor = self.blurEffectStyle == CNPBlurEffectStyleDark?[UIColor whiteColor].CGColor:[UIColor darkGrayColor].CGColor;
     [self.circleButton addTarget:self action:@selector(buttonTouchDown:) forControlEvents:UIControlEventTouchDown];
     [self.circleButton addTarget:self action:@selector(buttonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -226,6 +225,29 @@
     if (self.vibrancyView == nil) {
         [self setupCell];
     }
+}
+
+- (void)setMenuItem:(CNPGridMenuItem *)menuItem{
+    _menuItem = menuItem;
+    [self applyConditionalStyle:menuItem.disabled];
+}
+
+- (void)applyConditionalStyle:(BOOL)disabled{
+    
+    if (disabled) {
+        //Apply disabled apperance
+        self.circleButton.layer.borderWidth = 0.1f;
+        self.iconView.alpha = 0.3f;
+        self.titleLabel.alpha = 0.3f;
+        self.circleButton.enabled = false;
+    }
+    else{
+        self.circleButton.layer.borderWidth = 1.0f;
+        self.iconView.alpha = 1.0f;
+        self.titleLabel.alpha = 1.0f;
+        self.circleButton.enabled = true;
+    }
+    
 }
 
 - (void)layoutSubviews {
@@ -281,17 +303,13 @@
 #pragma mark - KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqual:@"disabled"]) {
-        //Apply disabled apperance
-        self.circleButton.layer.borderWidth = 0.1f;
-        self.iconView.alpha = 0.1f;
-        self.titleLabel.alpha = 0.1f;
-        self.circleButton.enabled = ![change objectForKey:NSKeyValueChangeNewKey];
+        [self applyConditionalStyle:[change objectForKey:NSKeyValueChangeNewKey]];
     }
 }
 
 #pragma mark - Life Cycle
 - (void)dealloc{
-    [self.circleButton removeObserver:self forKeyPath:@"disabled"];
+    [self.menuItem removeObserver:self forKeyPath:@"disabled"];
 }
 
 @end
