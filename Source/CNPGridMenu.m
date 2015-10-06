@@ -303,7 +303,7 @@
 #pragma mark - KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqual:@"disabled"]) {
-        [self applyConditionalStyle:[change objectForKey:NSKeyValueChangeNewKey]];
+        [self applyConditionalStyle:[[change objectForKey:NSKeyValueChangeNewKey] boolValue]];
     }
 }
 
