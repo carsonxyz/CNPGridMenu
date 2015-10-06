@@ -138,6 +138,7 @@
     cell.delegate = self;
     cell.blurEffectStyle = self.blurEffectStyle;
     cell.menuItem = item;
+    [cell.menuItem addObserver:cell forKeyPath:@"disabled" options:NSKeyValueObservingOptionNew context:NULL];
     cell.iconView.image = [item.icon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     cell.titleLabel.text = item.title;
     cell.backgroundColor = [UIColor clearColor];
@@ -185,7 +186,6 @@
     
     self.circleButton = [[UIButton alloc] initWithFrame:CGRectZero];
     [self.circleButton setBackgroundColor:[UIColor clearColor]];
-    self.circleButton.layer.borderWidth = 1.0f;
     self.circleButton.layer.borderColor = self.blurEffectStyle == CNPBlurEffectStyleDark?[UIColor whiteColor].CGColor:[UIColor darkGrayColor].CGColor;
     [self.circleButton addTarget:self action:@selector(buttonTouchDown:) forControlEvents:UIControlEventTouchDown];
     [self.circleButton addTarget:self action:@selector(buttonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
@@ -227,6 +227,29 @@
     }
 }
 
+- (void)setMenuItem:(CNPGridMenuItem *)menuItem{
+    _menuItem = menuItem;
+    [self applyConditionalStyle:menuItem.disabled];
+}
+
+- (void)applyConditionalStyle:(BOOL)disabled{
+    
+    if (disabled) {
+        //Apply disabled apperance
+        self.circleButton.layer.borderWidth = 0.1f;
+        self.iconView.alpha = 0.3f;
+        self.titleLabel.alpha = 0.3f;
+        self.circleButton.enabled = false;
+    }
+    else{
+        self.circleButton.layer.borderWidth = 1.0f;
+        self.iconView.alpha = 1.0f;
+        self.titleLabel.alpha = 1.0f;
+        self.circleButton.enabled = true;
+    }
+    
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.vibrancyView.frame = self.contentView.bounds;
@@ -249,6 +272,7 @@
 }
 
 - (void)buttonTouchUpInside:(UIButton *)button {
+
     if (self.blurEffectStyle == CNPBlurEffectStyleDark) {
         self.iconView.tintColor = [UIColor whiteColor];
         button.backgroundColor = [UIColor clearColor];
@@ -274,6 +298,18 @@
         self.iconView.tintColor = [UIColor darkGrayColor];
         button.backgroundColor = [UIColor clearColor];
     }
+}
+
+#pragma mark - KVO
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqual:@"disabled"]) {
+        [self applyConditionalStyle:[change objectForKey:NSKeyValueChangeNewKey]];
+    }
+}
+
+#pragma mark - Life Cycle
+- (void)dealloc{
+    [self.menuItem removeObserver:self forKeyPath:@"disabled"];
 }
 
 @end
