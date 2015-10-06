@@ -138,6 +138,7 @@
     cell.delegate = self;
     cell.blurEffectStyle = self.blurEffectStyle;
     cell.menuItem = item;
+    [cell.menuItem addObserver:cell forKeyPath:@"disabled" options:NSKeyValueObservingOptionNew context:NULL];
     cell.iconView.image = [item.icon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     cell.titleLabel.text = item.title;
     cell.backgroundColor = [UIColor clearColor];
@@ -249,6 +250,7 @@
 }
 
 - (void)buttonTouchUpInside:(UIButton *)button {
+
     if (self.blurEffectStyle == CNPBlurEffectStyleDark) {
         self.iconView.tintColor = [UIColor whiteColor];
         button.backgroundColor = [UIColor clearColor];
@@ -274,6 +276,22 @@
         self.iconView.tintColor = [UIColor darkGrayColor];
         button.backgroundColor = [UIColor clearColor];
     }
+}
+
+#pragma mark - KVO
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqual:@"disabled"]) {
+        //Apply disabled apperance
+        self.circleButton.layer.borderWidth = 0.1f;
+        self.iconView.alpha = 0.1f;
+        self.titleLabel.alpha = 0.1f;
+        self.circleButton.enabled = ![change objectForKey:NSKeyValueChangeNewKey];
+    }
+}
+
+#pragma mark - Life Cycle
+- (void)dealloc{
+    [self.circleButton removeObserver:self forKeyPath:@"disabled"];
 }
 
 @end

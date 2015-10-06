@@ -42,6 +42,8 @@ typedef void (^SelectionHandler)(CNPGridMenuItem *item);
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) UIImage *icon;
+@property (nonatomic, assign) NSInteger menuItemTag;
+@property (nonatomic, assign) BOOL disabled;
 @property (nonatomic, copy) SelectionHandler selectionHandler;
 
 @end
