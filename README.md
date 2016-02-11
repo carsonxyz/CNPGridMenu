@@ -30,4 +30,4 @@ Requires iOS 7 or iOS 8
 
 ` pod "CNPGridMenu" `
 
-Or if you don't want to use Cocoapods ` #import "CNPGridMenu.h" `
+Or if you don't want to use CocoaPods ` #import "CNPGridMenu.h" `
