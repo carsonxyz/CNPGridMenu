@@ -54,6 +54,7 @@
 @property (nonatomic, strong) NSMutableArray *buttons;
 @property (nonatomic, strong) CNPGridMenuFlowLayout *flowLayout;
 @property (nonatomic, strong) UITapGestureRecognizer *backgroundTapGestureRecognizer;
+@property (nonatomic, assign) int showButtonIndex;
 
 @end
 
@@ -119,7 +120,27 @@
     self.collectionView.backgroundView.userInteractionEnabled = YES;
     [self.collectionView.backgroundView addGestureRecognizer:self.backgroundTapGestureRecognizer];
 }
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    _showButtonIndex=0;
+    [self fadeInNextButton];
+}
+//If feature is enable it will fade in buttons one by one
+-(void)fadeInNextButton{
+    if(_fadeInAnimationEnabled){
+        if (_showButtonIndex<=[_menuItems count]-1) {
+            NSIndexPath *indexPath=[NSIndexPath indexPathForRow:_showButtonIndex inSection:0];
+            CNPGridMenuCell *cell =(CNPGridMenuCell*) [self.collectionView cellForItemAtIndexPath:indexPath];
+            [UIView animateWithDuration:.4 delay:0 options:UIViewAnimationOptionTransitionCurlUp animations:^{
+                cell.alpha=1;
+            } completion:^(BOOL finished) {
+                _showButtonIndex++;
+                [self fadeInNextButton];
+            }];
+        }
+    }
 
+}
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return self.blurEffectStyle == CNPBlurEffectStyleDark ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
@@ -143,6 +164,9 @@
     cell.titleLabel.text = item.title;
     cell.backgroundColor = [UIColor clearColor];
     cell.contentView.backgroundColor = [UIColor clearColor];
+    if(_fadeInAnimationEnabled){
+        cell.alpha=0;
+    }
     return cell;
 }
 
