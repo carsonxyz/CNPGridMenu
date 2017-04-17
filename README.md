@@ -1,10 +1,10 @@
-#CNPGridMenu
+# CNPGridMenu
 
 `CNPGridMenu` is a Mailbox style grid menu with a blurred background for iOS 7 & iOS 8.
 
 <p align="center"><img src="http://i.imgur.com/KhvwNU4.gif"/></p>
 
-#Usage
+# Usage
 
 You can create items for the grid menu using `CNPGridMenuItem`.
 
@@ -18,13 +18,13 @@ You can create items for the grid menu using `CNPGridMenuItem`.
 
 `@property (nonatomic, copy) SelectionHandler selectionHandler;`
 
-#Customization
+# Customization
 
 You can choose the blur style. `UIBlurEffectStyleDark` `UIBlurEffectStyleLight` `UIBlurEffectStyleExtraLight`
 
 `@property (nonatomic, assign) UIBlurEffectStyle blurEffectStyle;`
 
-#Installation
+# Installation
 
 Requires iOS 7 or iOS 8
 
