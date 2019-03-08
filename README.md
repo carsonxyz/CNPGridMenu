@@ -1,5 +1,9 @@
 # CNPGridMenu
 
+
+**THIS PROJECT IS DEPRECATED** I no longer have the time to maintain this project, sorry. I am no longer making any changes to this codebase. Please feel free to fork it, change whatever you want, and publish it anywhere you like. I'll leave this repo open until September 1, 2019 so that you can get what you need.
+
+
 `CNPGridMenu` is a Mailbox style grid menu with a blurred background for iOS 7 & iOS 8.
 
 <p align="center"><img src="http://i.imgur.com/KhvwNU4.gif"/></p>
